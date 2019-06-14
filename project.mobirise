@@ -36,7 +36,7 @@
     "path": "@PROJECT_PATH@",
     "versionFirst": "4.10.3",
     "siteFonts": [],
-    "uniqCompNum": 16,
+    "uniqCompNum": 17,
     "versionPublish": "4.10.2",
     "screenshot": "screenshot.png"
   },
@@ -398,7 +398,71 @@
         "title": "Student",
         "order": 4
       },
-      "components": []
+      "components": [
+        {
+          "alias": false,
+          "_styles": {
+            "padding-top": "(@paddingTop * 15px)",
+            "padding-bottom": "(@paddingBottom * 15px)",
+            "& when (@bg-type = 'color')": {
+              "background-color": "@bg-value"
+            },
+            "& when (@bg-type = 'image')": {
+              "background-image": "url(@bg-value)",
+              ".mbr-overlay": {
+                "background-color": "@overlayColor",
+                "opacity": "@overlayOpacity"
+              }
+            },
+            ".first-card": {
+              "background": "@card1BgColor"
+            },
+            ".card": {
+              "display": "flex"
+            },
+            "& when (@cardsAmount = '2'), (@cardsAmount = '3')": {
+              ".second-card": {
+                "background": "@card2BgColor"
+              }
+            },
+            "& when (@cardsAmount = '3')": {
+              ".third-card": {
+                "background": "@card3BgColor"
+              }
+            },
+            ".card-wrapper": {
+              "display": "flex"
+            },
+            ".icon-wrap": {
+              "width": "~\"@{iconSize}rem\"",
+              "height": "~\"@{iconSize}rem\"",
+              ".mbr-iconfont": {
+                "color": "@iconColor",
+                "font-size": "~\"@{iconSize}rem\""
+              }
+            },
+            "@media (max-width: 1440px)": {
+              ".card-wrapper": {
+                "-webkit-flex-direction": "column",
+                "flex-direction": "column"
+              }
+            },
+            "@media (max-width: 768px)": {
+              ".card": {
+                "padding": "1.875rem"
+              }
+            }
+          },
+          "_name": "features6",
+          "_customHTML": "<section class=\"features6\" group=\"Features\" plugins=\"amp-main\">\n\n    <mbr-parameters>\n    <!-- Block parameters controls (Blue \"Gear\" panel) -->\n        <input type=\"range\" inline=\"\" title=\"Top\" name=\"paddingTop\" min=\"0\" max=\"9\" step=\"1\" value=\"0\">\n        <input type=\"range\" inline=\"\" title=\"Bottom\" name=\"paddingBottom\" min=\"0\" max=\"9\" step=\"1\" value=\"0\">\n        \n        <select title=\"Cards\" name=\"cardsAmount\">\n            <option value=\"1\">1</option>\n            <option value=\"2\">2</option>\n            <option value=\"3\" selected=\"\">3</option>\n            \n        </select>\n        <input type=\"color\" title=\"Card1 BG Color\" name=\"card1BgColor\" value=\"#af9f8c\">\n        <input type=\"color\" title=\"Card2 BG Color\" name=\"card2BgColor\" value=\"#ffffff\" condition=\"cardsAmount == 2 || cardsAmount == 3 || cardsAmount == 4\">\n        <input type=\"color\" title=\"Card3 BG Color\" name=\"card3BgColor\" value=\"#65c7f5\" condition=\"cardsAmount == 3 || cardsAmount == 4\">\n        <input type=\"range\" inline=\"\" title=\"Icons Size\" name=\"iconSize\" min=\"2\" max=\"9\" step=\"0.25\" value=\"6\">\n        <input type=\"color\" title=\"Icon Color\" name=\"iconColor\" value=\"#ffffff\">\n\n        <input type=\"checkbox\" title=\"Show Card Title\" name=\"showCardTitle\" checked=\"\">\n        <input type=\"checkbox\" title=\"Show Text\" name=\"showText\" checked=\"\">\n\n        <fieldset type=\"background\" name=\"bg\">\n            <input type=\"image\" title=\"Background Image\" value=\"../_images/background1.jpg\">\n            <input type=\"color\" title=\"Background Color\" value=\"#ffffff\" selected=\"\">\n        </fieldset>\n\n        <input type=\"checkbox\" title=\"Overlay\" name=\"overlay\" checked=\"\" condition=\"bg.type!='color'\">\n        <input type=\"color\" title=\"Overlay Color\" name=\"overlayColor\" value=\"#ffffff\" condition=\"bg.type!='color' &amp;&amp; overlay\">\n        <input type=\"range\" inline=\"\" title=\"Overlay Opacity\" name=\"overlayOpacity\" min=\"0\" max=\"1\" step=\"0.1\" value=\"0.5\" condition=\"bg.type!='color' &amp;&amp; overlay\">\n    <!-- End block parameters -->\n    </mbr-parameters>\n\n    <div class=\"mbr-overlay\" mbr-if=\"overlay &amp;&amp; bg.type !== 'color'\"></div>    \n    <div class=\"container-fluid\">\n        <div class=\"mbr-row mbr-justify-content-center\">\n            <div class=\"card first-card mbr-p-60 mbr-col-sm-12 mbr-col-md-12\" mbr-class=\"{'mbr-col-lg-12': cardsAmount == 1,\n                             'mbr-col-lg-6': cardsAmount == 2,\n                             'mbr-col-lg-4': cardsAmount == 3}\">\n                <div class=\"card-wrapper mbr-align-items-center mbr-justify-content-center\">\n                    <div class=\"card-text-content\">\n                        <h4 class=\"item-title align-center mbr-fonts-style mbr-white mbr-bold\" data-app-selector=\".item-title\" mbr-if=\"showCardTitle\" mbr-theme-style=\"display-2\">\n                            7\n                        </h4> \n                        <p class=\"item-text align-center mbr-text mbr-fonts-style mbr-white mbr-light\" mbr-theme-style=\"display-5\" mbr-if=\"showText\" data-app-selector=\".item-text\">\n                            Year of experiences\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"card second-card mbr-p-60 mbr-col-sm-12 mbr-col-md-12\" mbr-class=\"{'mbr-col-lg-6': cardsAmount == 2,\n                             'mbr-col-lg-4': cardsAmount == 3}\" mbr-if=\"cardsAmount > 1\">\n                <div class=\"card-wrapper mbr-justify-content-center mbr-align-items-center\">\n                    <div class=\"card-text-content \">\n                        <h4 class=\"item-title align-center mbr-fonts-style mbr-black mbr-bold\" data-app-selector=\".item-title\" mbr-if=\"showCardTitle\" mbr-theme-style=\"display-2\">\n                            60,000\n                        </h4> \n                        <p class=\"item-text align-center mbr-text mbr-fonts-style mbr-light\" mbr-theme-style=\"display-5\" mbr-if=\"showText\" data-app-selector=\".item-text\">\n                            Students\n                        </p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"card third-card mbr-p-60 mbr-col-sm-12 mbr-col-md-12 mbr-col-lg-4\" mbr-if=\"cardsAmount > 2\">\n                <div class=\"card-wrapper mbr-align-items-center mbr-justify-content-center\">\n                    <div class=\"card-text-content\">\n                        <div class=\"icon-wrap d-flex\">\n                            <span mbr-icon=\"\" class=\"mbr-iconfont fa fa-drivers-license-o\"></span>\n                        </div>\n                    </div>\n                </div>\n            </div>        \n        </div>\n    </div>\n</section>",
+          "_cid": "rtoG2PfUXL",
+          "_anchor": "features6-g",
+          "_protectedParams": [],
+          "_global": false,
+          "_once": false,
+          "_params": {}
+        }
+      ]
     }
   }
 }
